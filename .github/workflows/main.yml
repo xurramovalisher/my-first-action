@@ -1,0 +1,14 @@
+name: Salom Dunyo Pipeline
+
+on: [push]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Birinchi qadam
+        run: echo "Salom! GitHub Actions muvaffaqiyatli ishladi."
+
+      - name: Sana va vaqtni ko'rish
+        run: date
