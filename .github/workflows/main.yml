@@ -3,7 +3,7 @@ name: Salom Dunyo Pipeline
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # Bu kodni qo'l bilan ham ishlatish imkonini beradi
+  workflow_dispatch:
 
 jobs:
   tizim-tekshiruvi:
@@ -20,3 +20,10 @@ jobs:
           echo "Operatsion tizim:"
           lsb_release -a
           echo "Hozirgi vaqt: $(date)"
+
+      - name: Maxfiy ismni tekshirish
+        env:
+          MY_SECRET_NAME: ${{ secrets.FOYDALANUVCHI_NOMI2 }}
+        run: |
+          echo "Hozir maxfiy ismni chiqaramiz..."
+          echo "Mening ismim: $MY_SECRET_NAME"
