@@ -1,14 +1,22 @@
 name: Salom Dunyo Pipeline
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Bu kodni qo'l bilan ham ishlatish imkonini beradi
 
 jobs:
-  say-hello:
+  tizim-tekshiruvi:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Birinchi qadam
-        run: echo "Salom! GitHub Actions muvaffaqiyatli ishladi."
+      - name: Kodni yuklab olish
+        uses: actions/checkout@v4
 
-      - name: Sana va vaqtni ko'rish
-        run: date
+      - name: Salom berish
+        run: echo "Salom, GitHub Actions muvaffaqiyatli ishlamoqda!"
+
+      - name: Tizim haqida ma'lumot
+        run: |
+          echo "Operatsion tizim:"
+          lsb_release -a
+          echo "Hozirgi vaqt: $(date)"
