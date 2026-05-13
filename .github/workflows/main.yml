@@ -1,4 +1,4 @@
-name: Salom Dunyo Pipeline
+name: Artifacts bilan ishlash
 
 on:
   push:
@@ -6,24 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  tizim-tekshiruvi:
+  build-va-yuklash:
     runs-on: ubuntu-latest
     steps:
       - name: Kodni yuklab olish
         uses: actions/checkout@v4
 
-      - name: Salom berish
-        run: echo "Salom, GitHub Actions muvaffaqiyatli ishlamoqda!"
-
-      - name: Tizim haqida ma'lumot
+      - name: Fayl yaratish
         run: |
-          echo "Operatsion tizim:"
-          lsb_release -a
-          echo "Hozirgi vaqt: $(date)"
+          echo "Bu fayl GitHub Actions tomonidan yaratildi." > natija.txt
+          echo "Yaratilgan vaqti: $(date)" >> natija.txt
+          echo "Loyiha egasi: ${{ secrets.FOYDALANUVCHI_NOMI2 }}" >> natija.txt
 
-      - name: Maxfiy ismni tekshirish
-        env:
-          MY_SECRET_NAME: ${{ secrets.FOYDALANUVCHI_NOMI2 }}
-        run: |
-          echo "Hozir maxfiy ismni chiqaramiz..."
-          echo "Mening ismim: $MY_SECRET_NAME"
+      - name: Faylni Artifact sifatida saqlash
+        uses: actions/upload-artifact@v4
+        with:
+          name: mening-faylim
+          path: natija.txt
