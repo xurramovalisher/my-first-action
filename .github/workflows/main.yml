@@ -3,6 +3,8 @@ name: Artifacts bilan ishlash
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Har kuni yarim tunda avtomatik ishlaydi
   workflow_dispatch:
 
 jobs:
@@ -17,6 +19,15 @@ jobs:
           echo "Bu fayl GitHub Actions tomonidan yaratildi." > natija.txt
           echo "Yaratilgan vaqti: $(date)" >> natija.txt
           echo "Loyiha egasi: ${{ secrets.FOYDALANUVCHI_NOMI2 }}" >> natija.txt
+
+      - name: Oddiy test o'tkazish
+        run: |
+          if [ "${{ secrets.FOYDALANUVCHI_NOMI2 }}" == "Alisher" ]; then
+            echo "Test muvaffaqiyatli o'tdi: Foydalanuvchi tasdiqlandi!"
+          else
+            echo "Xato: Noma'lum foydalanuvchi!"
+            exit 1
+          fi
 
       - name: Faylni Artifact sifatida saqlash
         uses: actions/upload-artifact@v4
