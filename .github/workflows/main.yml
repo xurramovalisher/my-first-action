@@ -3,8 +3,6 @@ name: Artifacts bilan ishlash
 on:
   push:
     branches: [ main ]
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -17,15 +15,14 @@ jobs:
       - name: Fayl yaratish
         run: |
           echo "Bu fayl GitHub Actions tomonidan yaratildi." > natija.txt
-          echo "Yaratilgan vaqti: $(date)" >> natija.txt
           echo "Loyiha egasi: ${{ secrets.FOYDALANUVCHI_NOMI2 }}" >> natija.txt
 
       - name: Oddiy test o'tkazish
         run: |
           if [ "${{ secrets.FOYDALANUVCHI_NOMI2 }}" == "Alisher" ]; then
-            echo "Test muvaffaqiyatli o'tdi: Foydalanuvchi tasdiqlandi!"
+            echo "Test muvaffaqiyatli o'tdi!"
           else
-            echo "Xato: Noma'lum foydalanuvchi!"
+            echo "Xato: Secret qiymati mos kelmadi!"
             exit 1
           fi
 
